@@ -20,7 +20,7 @@ df_gdp = df_gdp.rename(columns={col: f"{col}_gdp" for col in gdp_cols})
 df_merged = pd.merge(df_industri, df_gdp, on='IDDESA', how='outer')
 
 # Load GeoJSON
-with open('indonesia-desa.geojson', encoding='utf-8') as f:
+with open('indonesia-desa-desa.geojson', encoding='utf-8') as f:
     geo = json.load(f)
 
 # Buat dict hasil merge untuk lookup cepat

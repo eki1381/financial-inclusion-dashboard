@@ -157,32 +157,17 @@ export const generateSampleData = (): DashboardData => {
     rank: index + 1
   }))
 
-  // Generate national trends
+  // Static national trends data (2019-2024)
   const nationalTrends = {
-    financialInclusion: [] as FinancialInclusionData[],
-    economicGrowth: [] as number[]
-  }
-
-  for (let year = 2019; year <= 2024; year++) {
-    // Calculate national averages
-    const yearData = regions.filter(r => r.type === 'kabupaten').map(r => 
-      r.financialInclusion.find(fi => fi.year === year)!
-    )
-    
-    nationalTrends.financialInclusion.push({
-      year,
-      availability: yearData.reduce((sum, d) => sum + d.availability, 0) / yearData.length,
-      accessibility: yearData.reduce((sum, d) => sum + d.accessibility, 0) / yearData.length,
-      usage: yearData.reduce((sum, d) => sum + d.usage, 0) / yearData.length,
-      composite: yearData.reduce((sum, d) => sum + d.composite, 0) / yearData.length
-    })
-
-    const economicData = regions.filter(r => r.type === 'kabupaten').map(r => 
-      r.economicGrowth[year - 2019]
-    )
-    nationalTrends.economicGrowth.push(
-      economicData.reduce((sum, d) => sum + d, 0) / economicData.length
-    )
+    financialInclusion: [
+      { year: 2019, availability: 0.0565, accessibility: 0.3142, usage: 0.0981, composite: 0.3017 },
+      { year: 2020, availability: 0.0538, accessibility: 0.3427, usage: 0.1037, composite: 0.3217 },
+      { year: 2021, availability: 0.0516, accessibility: 0.3734, usage: 0.1093, composite: 0.3437 },
+      { year: 2022, availability: 0.1235, accessibility: 0.3669, usage: 0.1134, composite: 0.4153 },
+      { year: 2023, availability: 0.1083, accessibility: 0.3867, usage: 0.1217, composite: 0.4189 },
+      { year: 2024, availability: 0.0465, accessibility: 0.4173, usage: 0.1274, composite: 0.3806 }
+    ],
+    economicGrowth: []
   }
 
   return {
