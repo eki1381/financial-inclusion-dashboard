@@ -401,7 +401,7 @@ export const indonesiaVillagesGeoJSON = {
 // Generate additional villages programmatically to reach 80 villages
 export function generateIndonesiaVillages(): FeatureCollection {
   const baseFeatures = indonesiaVillagesGeoJSON.features
-  const additionalFeatures: GeoJSON.Feature[] = []
+  const additionalFeatures: Feature<Point>[] = []
   
   // Generate more villages around existing ones
   baseFeatures.forEach((feature, index) => {
@@ -414,24 +414,24 @@ export function generateIndonesiaVillages(): FeatureCollection {
         const newLat = lat + (Math.random() - 0.5) * 0.1
         
         additionalFeatures.push({
-          "type": "Feature",
-          "properties": {
-            "id": `desa_${index + 17}_${i}`,
-            "name": `Desa ${feature.properties.name.split(' ')[1]} ${i === 1 ? 'Utara' : 'Selatan'}`,
-            "kabupaten": feature.properties.kabupaten,
-            "provinsi": feature.properties.provinsi
+          type: "Feature",
+          properties: {
+            id: `desa_${index + 17}_${i}`,
+            name: `Desa ${feature.properties.name.split(' ')[1]} ${i === 1 ? 'Utara' : 'Selatan'}`,
+            kabupaten: feature.properties.kabupaten,
+            provinsi: feature.properties.provinsi,
           },
-          "geometry": {
-            "type": "Point",
-            "coordinates": [newLng, newLat]
-          }
-        })
+          geometry: {
+            type: "Point",
+            coordinates: [newLng, newLat],
+          },
+        } as Feature<Point>)
       }
     }
   })
   
   return {
-    "type": "FeatureCollection",
-    "features": [...baseFeatures, ...additionalFeatures]
+    type: "FeatureCollection",
+    features: [...baseFeatures, ...additionalFeatures],
   }
 }
