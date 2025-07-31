@@ -48,10 +48,8 @@ export function LeafletChoroplethMap({ geojsonUrl, filterProv, filterKab, faktor
 const filteredGeojson = useMemo(() => {
   if (!geojson) return geojson
   if (typeof filterProv === 'string' || typeof filterKab === 'string') {
-    // @ts-expect-error
     return {
       ...geojson,
-      // @ts-expect-error
       features: geojson.features.filter((f: any) => {
         if (filterKab && filterKab !== 'all') {
           if (filterProv && filterProv !== 'all') {
@@ -73,11 +71,8 @@ const filteredGeojson = useMemo(() => {
   useEffect(() => {
     if (!geojson || !faktor) return
     const key = macro ? `${faktor}_${macro}` : faktor
-    // @ts-expect-error
     const values = geojson.features
-      // @ts-expect-error
       .map((f: any) => f.properties[key])
-      // @ts-expect-error
       .filter((v: any) => v !== undefined && v !== null && !isNaN(v))
       .sort((a: number, b: number) => a - b)
     // Debug: log values dan breaks
@@ -114,7 +109,6 @@ const filteredGeojson = useMemo(() => {
     const pvalKey = `${faktor}_pval_${macro}`
     let signifikan = 0
     let tidak = 0
-    // @ts-expect-error
     filteredGeojson.features.forEach((f: any) => {
       const pval = f.properties[pvalKey]
       if (typeof pval === 'number' && pval < 0.05) signifikan++
@@ -157,17 +151,13 @@ const filteredGeojson = useMemo(() => {
     if (!mapRef.current || !filteredGeojson || !filteredGeojson.features?.length) return
     // Get all coordinates from features
     const coords: [number, number][] = []
-    // @ts-expect-error
     filteredGeojson.features.forEach((f: any) => {
       const geom = f.geometry
       if (!geom) return
       if (geom.type === 'Polygon') {
-        // @ts-expect-error
         geom.coordinates.forEach((ring: any) => ring.forEach((c: any) => coords.push([c[1], c[0]])))
       } else if (geom.type === 'MultiPolygon') {
-        // @ts-expect-error
         geom.coordinates.forEach((poly: any) =>
-          // @ts-expect-error
           poly.forEach((ring: any) => ring.forEach((c: any) => coords.push([c[1], c[0]])))
         )
       } else if (geom.type === 'Point') {
