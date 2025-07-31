@@ -5,6 +5,14 @@ import { MapContainer, TileLayer, GeoJSON, useMap } from 'react-leaflet'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 
+function MapRefSetter({ mapRef }: { mapRef: React.MutableRefObject<L.Map | null> }) {
+  const map = useMap();
+  useEffect(() => {
+    mapRef.current = map;
+  }, [map]);
+  return null;
+}
+
 interface LeafletChoroplethMapProps {
   geojsonUrl: string
   filterProv?: string
@@ -187,8 +195,8 @@ const filteredGeojson = useMemo(() => {
           zoom={5}
           style={{ width: '100%', height: height || 440, borderRadius: 12, zIndex: 1 }}
           scrollWheelZoom={true}
-          whenReady={e => { mapRef.current = e.target }}
         >
+          <MapRefSetter mapRef={mapRef} />
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
