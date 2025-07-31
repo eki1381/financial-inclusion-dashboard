@@ -37,16 +37,21 @@ export function IndustrySection({ data }: IndustrySectionProps) {
 
   // Get top 10 kabupaten/kota for selected year & dimension
   let top10: { nmkab: string, value: number }[] = []
-  if (geojson) {
-    const key = DIMENSIONS.find(d => d.key === rankDim)?.prefix + rankYear
-    top10 = geojson.features
-      .map((f: any) => ({
-        nmkab: f.properties.nmkab || f.properties.name || '-',
-        value: f.properties[key]
-      }))
-      .filter((f: any) => f.value !== undefined && f.value !== null && !isNaN(f.value))
-      .sort((a: any, b: any) => b.value - a.value)
-      .slice(0, 5)
+   if (geojson) {
+    const dim = DIMENSIONS.find(d => d.key === rankDim)
+    if (!dim) {
+      console.warn("Invalid rankDim:", rankDim)
+    } else {
+      const key = dim.prefix + rankYear
+      top10 = geojson.features
+        .map((f: any) => ({
+          nmkab: f.properties.nmkab || f.properties.name || '-',
+          value: f.properties[key]
+        }))
+        .filter((f: any) => f.value !== undefined && f.value !== null && !isNaN(f.value))
+        .sort((a: any, b: any) => b.value - a.value)
+        .slice(0, 5)
+    }
   }
 
   return (
