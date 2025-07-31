@@ -5,6 +5,7 @@ import { motion } from 'framer-motion'
 import { GWRResult } from '@/lib/types'
 import { interpolateColor } from '@/lib/utils'
 import { generateIndonesiaVillages } from '@/lib/indonesia-geojson'
+import type { Point } from 'geojson'
 
 interface SimpleMapProps {
   gwrResults: GWRResult[]
@@ -26,7 +27,7 @@ export function SimpleMap({ gwrResults, selectedIndex, onRegionClick }: SimpleMa
   // Map GWR results to geographic coordinates
   const mapRegions = gwrResults.slice(0, 80).map((result, index) => {
     const village = villagesGeoJSON.features[index % villagesGeoJSON.features.length]
-    const [lng, lat] = village.geometry.coordinates
+    const [lng, lat] = (village.geometry as Point).coordinates
     
     // Convert geographic coordinates to SVG coordinates
     // Indonesia bounds: lng 95-141, lat -11 to 6
