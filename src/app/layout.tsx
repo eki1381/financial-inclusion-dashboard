@@ -8,7 +8,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Inklusi Keuangan, Industri, dan Pertumbuhan Ekonomi",
+  title: "GEO-REFINED",
   description: "Analisis Spasial Indonesia 2019–2024 - Dashboard interaktif untuk memahami hubungan antara inklusi keuangan, sektor industri, dan pertumbuhan ekonomi di Indonesia",
   keywords: ["inklusi keuangan", "pertumbuhan ekonomi", "industri", "Indonesia", "analisis spasial", "GWR"],
   authors: [{ name: "Tim Peneliti Inklusi Keuangan Indonesia" }],
