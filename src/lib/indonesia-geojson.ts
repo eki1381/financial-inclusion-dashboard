@@ -1,5 +1,6 @@
 // Simplified Indonesia GeoJSON data for village-level analysis
 // This is a representative sample of Indonesian villages with realistic coordinates
+import type { Feature, FeatureCollection, Point } from "geojson";
 
 export const indonesiaVillagesGeoJSON = {
   "type": "FeatureCollection",
@@ -398,9 +399,9 @@ export const indonesiaVillagesGeoJSON = {
 }
 
 // Generate additional villages programmatically to reach 80 villages
-export function generateIndonesiaVillages() {
+export function generateIndonesiaVillages(): FeatureCollection {
   const baseFeatures = indonesiaVillagesGeoJSON.features
-  const additionalFeatures = []
+  const additionalFeatures: GeoJSON.Feature[] = []
   
   // Generate more villages around existing ones
   baseFeatures.forEach((feature, index) => {
